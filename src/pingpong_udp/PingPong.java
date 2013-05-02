@@ -59,6 +59,7 @@ public class PingPong {
             sock.receive(packet);
             String content = new String(packet.getData(),0,packet.getLength());
             System.out.println("Received: "+content);
+            Thread.sleep(1000);
         }
         String end_message = "END";
         buffer = end_message.getBytes();
