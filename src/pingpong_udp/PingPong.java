@@ -19,7 +19,7 @@ public class PingPong {
             client(args[0]);
     }
     
-    private static final int server_port = 4242;
+    private static final int server_port = 4242; // No one else will use this portnumber?
     private static final int buffer_length = 1024;
     
     public static void server () throws Exception {
@@ -28,8 +28,10 @@ public class PingPong {
         DatagramPacket packet;
         boolean running = true;
         while (running) {
+            // Prepare a buffer to hold the next message
             packet = new DatagramPacket(buffer,buffer.length);
             sock.receive(packet);
+            // Interpret the message as a string with given length
             String content = new String(packet.getData(),0,packet.getLength());
             System.out.println("Received: "+content);
             if (content.equals("END"))
@@ -61,6 +63,7 @@ public class PingPong {
             System.out.println("Received: "+content);
             Thread.sleep(1000);
         }
+        // Sending the final message
         String end_message = "END";
         buffer = end_message.getBytes();
         packet = new DatagramPacket(buffer,end_message.length(),server_addr,server_port);
